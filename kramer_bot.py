@@ -73,12 +73,12 @@ class KramerBot:
     
     def generate_kramer_quote(self) -> str:
         """Generate a new Kramer quote using OpenAI."""
-        prompt = """Generate a short, punchy quote from Cosmo Kramer (from Seinfeld) as if he's living in 2025. 
+        prompt = """Generate a short, punchy quote from Cosmo Kramer (from Seinfeld) as if he's living in present day. 
 
 The quote should:
 - Be under 300 characters
 - Reflect Kramer's eccentric personality and speaking style
-- Include modern technology, trends, or culture (AirPods, e-scooters, TikTok, AI, Zoom, oat milk, etc.)
+- Include modern technology, trends, or culture
 - Be self-contained and funny
 - Start with "I" or "You" and feel like natural Kramer dialogue
 - Include his characteristic enthusiasm and bizarre logic
