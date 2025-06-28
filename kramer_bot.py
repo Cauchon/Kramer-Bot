@@ -80,21 +80,25 @@ The quote should:
 - Reflect Kramer's eccentric personality and speaking style
 - Include modern technology, trends, or culture
 - Be self-contained and funny
-- Start with "I" or "You" and feel like natural Kramer dialogue
+- Feel like natural Kramer dialogue
 - Include his characteristic enthusiasm and bizarre logic
 
 Examples of the style and tone:
 "I tried to make my own oat milk… I milked the oats, Jerry! But they just got soggy!"
-"You ever been in a Zoom breakout room, Jerry? It's like being trapped in an elevator… with no buttons!"
-"I sold my neighbor an NFT of his own front door. It's art, Jerry!"
-I tried intermittent fasting, Jerry. But I kept sleeping through the eating window!”
-"You ever yell at your smart fridge, Jerry? It remembers! It's holding a grudge!"
-"I subscribed to twelve AI girlfriends. Now they're mad I'm not exclusive!"
-"I bought a weighted blanket… it's too clingy, Jerry! It's like sleeping under commitment!"
+"I used AI to write my résumé… now I'm overqualified and British!"
+"I sold my neighbor an NFT of his own front door. It's art!"
+"I tried intermittent fasting, Jerry. But I kept sleeping through the eating window!”
+"You ever yell at your smart fridge? It remembers! It's holding a grudge!"
+"I subscribed to twelve OnlyFans. Now they're mad I'm not exclusive!"
+"I signed up for crypto yoga—every pose is a gamble. I lost three grand in downward dog!"
+"I bought a bidet on Prime Day—now I can't look my toilet in the eye!"
 "I got a smartwatch, Jerry. It told me to breathe—while I was already breathing! Now I'm overthinking it!"
-"I tried to unsubscribe from emails, Jerry. The link took me to a TED Talk!"
+"You ever get a push notification that feels personal? My bank just mocked my savings"
 "You ever ghost a spam caller, Jerry? They called back apologizing! Said they missed me!"
-
+"George started microdosing and now he thinks he's emotionally fluent. He cried during a car commercial, Jerry!”
+"Jerry's fridge has an Instagram account now. It keeps tagging me in posts like 'Guess who ate all the olives?' It's bullying me!"
+"George joined a virtual reality gym—last week he pulled a hamstring in the metaverse!"
+"I asked ChatGPT to write a love letter for Newman. Now his Roomba's in love with him. It follows him to the shower!"
 
 Generate only the quote, no additional text or formatting."""
 
