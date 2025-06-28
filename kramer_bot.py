@@ -129,7 +129,6 @@ Generate only the quote, no additional text or formatting."""
             "I sold my neighbor an NFT of his own front door. It's art, Jerry!",
             "I was tracking my steps with a smart ring… now it thinks I'm a hummingbird!",
             "You know what the problem is with AI girlfriends? No garlic breath! It's unnatural!",
-            "I bought a self-driving e-scooter, Jerry. Now it's driving me crazy!",
             "These AirPods are like having tiny robots in your ears, Jerry!",
             "I started a TikTok about my coffee table. It's got 3 followers - me, you, and the table!",
             "I tried to order oat milk at Starbucks, Jerry. They looked at me like I was from Mars!",
