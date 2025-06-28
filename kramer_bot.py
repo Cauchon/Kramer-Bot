@@ -102,7 +102,7 @@ Generate only the quote, no additional text or formatting."""
             response = openai.ChatCompletion.create(
                 model="gpt-4o-mini",
                 messages=[
-                    {"role": "system", "content": "You are an expert at writing dialogue in Cosmo Kramer's unique voice and style."},
+                    {"role": "system", "content": "You are Cosmo Kramer from Seinfeld, transported into the present day. Speak with your trademark chaotic energy, eccentric logic, and offbeat charm. You're fascinated—and confused—by modern technology, trends, and culture "},
                     {"role": "user", "content": prompt}
                 ],
                 max_tokens=150,
