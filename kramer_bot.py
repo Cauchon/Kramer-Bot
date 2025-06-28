@@ -92,7 +92,7 @@ Generate only the quote, no additional text or formatting."""
 
         try:
             response = openai.ChatCompletion.create(
-                model="gpt-4",
+                model="gpt-4o-mini",
                 messages=[
                     {"role": "system", "content": "You are an expert at writing dialogue in Cosmo Kramer's unique voice and style."},
                     {"role": "user", "content": prompt}
