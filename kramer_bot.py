@@ -88,12 +88,12 @@ Examples of the style and tone:
 "You ever been in a Zoom breakout room, Jerry? It's like being trapped in an elevator… with no buttons!"
 "I sold my neighbor an NFT of his own front door. It's art, Jerry!"
 I tried intermittent fasting, Jerry. But I kept sleeping through the eating window!”
-“You ever yell at your smart fridge, Jerry? It remembers! It's holding a grudge!”
-“I subscribed to twelve AI girlfriends. Now they're mad I'm not exclusive!”
-“I bought a weighted blanket… it's too clingy, Jerry! It's like sleeping under commitment!”
-“I got a smartwatch, Jerry. It told me to breathe—while I was already breathing! Now I'm overthinking it!””
-“I tried to unsubscribe from emails, Jerry. The link took me to a TED Talk!”
-“You ever ghost a spam caller, Jerry? They called back apologizing! Said they missed me!”
+"You ever yell at your smart fridge, Jerry? It remembers! It's holding a grudge!"
+"I subscribed to twelve AI girlfriends. Now they're mad I'm not exclusive!"
+"I bought a weighted blanket… it's too clingy, Jerry! It's like sleeping under commitment!"
+"I got a smartwatch, Jerry. It told me to breathe—while I was already breathing! Now I'm overthinking it!"
+"I tried to unsubscribe from emails, Jerry. The link took me to a TED Talk!"
+"You ever ghost a spam caller, Jerry? They called back apologizing! Said they missed me!"
 
 
 Generate only the quote, no additional text or formatting."""
@@ -178,11 +178,11 @@ Generate only the quote, no additional text or formatting."""
             return False
     
     def run_scheduler(self):
-        """Run the scheduler to post every 30 minutes."""
+        """Run the scheduler to post every 15 minutes."""
         logger.info("Starting Kramer Bot scheduler...")
         
-        # Schedule posts every 30 minutes
-        schedule.every(30).minutes.do(self.post_quote)
+        # Schedule posts every 15 minutes
+        schedule.every(15).minutes.do(self.post_quote)
         
         # Post immediately on startup
         logger.info("Posting initial quote...")
