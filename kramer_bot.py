@@ -83,10 +83,18 @@ The quote should:
 - Start with "I" or "You" and feel like natural Kramer dialogue
 - Include his characteristic enthusiasm and bizarre logic
 
-Examples of the style:
+Examples of the style and tone:
 "I tried to make my own oat milk… I milked the oats, Jerry! But they just got soggy!"
 "You ever been in a Zoom breakout room, Jerry? It's like being trapped in an elevator… with no buttons!"
 "I sold my neighbor an NFT of his own front door. It's art, Jerry!"
+I tried intermittent fasting, Jerry. But I kept sleeping through the eating window!”
+“You ever yell at your smart fridge, Jerry? It remembers! It's holding a grudge!”
+“I subscribed to twelve AI girlfriends. Now they're mad I'm not exclusive!”
+“I bought a weighted blanket… it's too clingy, Jerry! It's like sleeping under commitment!”
+“I got a smartwatch, Jerry. It told me to breathe—while I was already breathing! Now I'm overthinking it!””
+“I tried to unsubscribe from emails, Jerry. The link took me to a TED Talk!”
+“You ever ghost a spam caller, Jerry? They called back apologizing! Said they missed me!”
+
 
 Generate only the quote, no additional text or formatting."""
 
