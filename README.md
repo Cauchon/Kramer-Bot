@@ -4,11 +4,11 @@ A Bluesky bot that automatically posts fictional Cosmo Kramer quotes every 3 hou
 
 ## Features
 
-- **Automatic posting**: Posts every 3 hours using a scheduler
-- **AI-generated quotes**: Uses GPT-4 to create unique, in-character Kramer quotes
+- **Automatic posting**: Posts every hour using a scheduler
+- **AI-generated quotes**: Uses gpt-4o-mini to create unique, in-character Kramer quotes
 - **Duplicate prevention**: Caches recent posts to avoid repeats
 - **Modern context**: Quotes reference current technology (AirPods, TikTok, AI, Zoom, etc.)
-- **Easy deployment**: Ready to deploy on Render.com
+- **Easy deployment**: Ready to deploy,
 - **Fallback system**: Includes backup quotes if AI generation fails
 
 ## Example Quotes
@@ -23,7 +23,7 @@ A Bluesky bot that automatically posts fictional Cosmo Kramer quotes every 3 hou
 ### Prerequisites
 
 1. **Bluesky Account**: You need a Bluesky account and an App Password
-2. **OpenAI API Key**: For generating quotes with GPT-4
+2. **OpenAI API Key**: For generating quotes with gpt-4o-mini
 
 ### Local Development
 
@@ -81,15 +81,15 @@ A Bluesky bot that automatically posts fictional Cosmo Kramer quotes every 3 hou
 ## Configuration
 
 ### Posting Schedule
-The bot posts every 3 hours by default. To change this, modify the schedule in `kramer_bot.py`:
+The bot posts every 1 hour by default. To change this, modify the schedule in `kramer_bot.py`:
 
 ```python
-schedule.every(3).hours.do(self.post_quote)
+schedule.every(1).hours.do(self.post_quote)
 ```
 
 ### Quote Generation
 - **Character limit**: 300 characters max
-- **AI model**: GPT-4
+- **AI model**: gpt-4o-mini
 - **Temperature**: 0.9 (for creativity)
 - **Fallback quotes**: 15 pre-written quotes if AI fails
 
@@ -159,4 +159,4 @@ This project is open source. Feel free to use and modify as needed.
 
 ---
 
-*"I'm telling you, Jerry, this bot is going to be huge!"* - Cosmo Kramer (probably) 
+*"I'm telling you, Jerry, this bot is going to be huge!"* - Cosmo Kramer

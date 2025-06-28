@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Kramer Bot - A Bluesky bot that posts fictional Cosmo Kramer quotes
-Posts every 3 hours with modern-day observations and schemes
+Posts every hour with modern-day observations and schemes
 """
 
 import os
