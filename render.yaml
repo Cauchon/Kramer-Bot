@@ -1,0 +1,13 @@
+services:
+  - type: worker
+    name: kramer-bot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python kramer_bot.py
+    envVars:
+      - key: BLUESKY_HANDLE
+        sync: false
+      - key: BLUESKY_APP_PASSWORD
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false 
