@@ -1,4 +1,4 @@
-atproto==0.0.40
+atproto==0.0.61
 openai==1.3.0
 python-dotenv==1.0.0
 schedule==1.2.0
