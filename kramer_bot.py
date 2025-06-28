@@ -178,11 +178,11 @@ Generate only the quote, no additional text or formatting."""
             return False
     
     def run_scheduler(self):
-        """Run the scheduler to post every 15 minutes."""
+        """Run the scheduler to post every 1 hour."""
         logger.info("Starting Kramer Bot scheduler...")
         
-        # Schedule posts every 15 minutes
-        schedule.every(15).minutes.do(self.post_quote)
+        # Schedule posts every 1 hour
+        schedule.every(1).hours.do(self.post_quote)
         
         # Post immediately on startup
         logger.info("Posting initial quote...")
