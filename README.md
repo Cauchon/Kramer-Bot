@@ -1,10 +1,11 @@
 # Kramer Bot 🤖
 
-A Bluesky bot that automatically posts fictional Cosmo Kramer quotes every 3 hours, as if he were living in 2025 and experiencing modern technology and culture.
+A Bluesky and X/Twitter bot that automatically posts fictional Cosmo Kramer quotes every 3 hours, as if he were living in 2025 and experiencing modern technology and culture.
 
 ## Features
 
-- **Automatic posting**: Posts every hour using a scheduler
+- **Cross-platform posting**: Posts to both Bluesky and Twitter (X)
+- **Automatic scheduling**: Posts every hour using a scheduler
 - **AI-generated quotes**: Uses gpt-4o-mini to create unique, in-character Kramer quotes
 - **Duplicate prevention**: Caches recent posts to avoid repeats
 - **Modern context**: Quotes reference current technology (AirPods, TikTok, AI, Zoom, etc.)
@@ -24,6 +25,7 @@ A Bluesky bot that automatically posts fictional Cosmo Kramer quotes every 3 hou
 
 1. **Bluesky Account**: You need a Bluesky account and an App Password
 2. **OpenAI API Key**: For generating quotes with gpt-4o-mini
+3. **Twitter API Access** (Optional): For cross-posting to Twitter (X)
 
 ### Local Development
 
@@ -48,6 +50,12 @@ A Bluesky bot that automatically posts fictional Cosmo Kramer quotes every 3 hou
    BLUESKY_HANDLE=your-handle.bsky.social
    BLUESKY_APP_PASSWORD=your-app-password
    OPENAI_API_KEY=your-openai-api-key
+   
+   # Optional Twitter API credentials
+   TWITTER_API_KEY=your-twitter-api-key
+   TWITTER_API_SECRET=your-twitter-api-secret
+   TWITTER_ACCESS_TOKEN=your-twitter-access-token
+   TWITTER_ACCESS_SECRET=your-twitter-access-secret
    ```
 
 4. **Run the bot**:
@@ -88,10 +96,10 @@ schedule.every(1).hours.do(self.post_quote)
 ```
 
 ### Quote Generation
-- **Character limit**: 300 characters max
+- **Character limit**: 280 characters (Twitter-compatible)
 - **AI model**: gpt-4o-mini
 - **Temperature**: 0.9 (for creativity)
-- **Fallback quotes**: 15 pre-written quotes if AI fails
+- **Fallback quotes**: 5 pre-written quotes if AI fails
 
 ### Duplicate Prevention
 - **Cache size**: Last 100 posts
@@ -103,6 +111,7 @@ schedule.every(1).hours.do(self.post_quote)
 ```
 Kramer-Bot/
 ├── kramer_bot.py          # Main bot script
+├── test_bot.py           # Test script for verification
 ├── requirements.txt       # Python dependencies
 ├── render.yaml           # Render.com deployment config
 ├── env.example           # Environment variables template
