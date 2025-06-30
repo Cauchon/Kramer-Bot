@@ -23,6 +23,7 @@ def test_quote_generation():
 
 The quote should:
 - Be under 280 characters (for Twitter compatibility)
+- Do not include quotations before and after the quote
 - Reflect Kramer's eccentric personality and speaking style
 - Include modern technology, trends, or culture
 - Be self-contained and funny
