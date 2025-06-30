@@ -10,4 +10,14 @@ services:
       - key: BLUESKY_APP_PASSWORD
         sync: false
       - key: OPENAI_API_KEY
+        sync: false
+      # Optional Twitter API credentials
+      - key: TWITTER_API_KEY
+        sync: false
+      - key: TWITTER_API_SECRET
+        sync: false
+      - key: TWITTER_ACCESS_TOKEN
+        sync: false
+      - key: TWITTER_ACCESS_SECRET
+        sync: false
         sync: false 
