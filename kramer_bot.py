@@ -14,6 +14,7 @@ from typing import List, Optional
 import random
 
 import openai
+import tweepy
 from atproto import Client
 from dotenv import load_dotenv
 
@@ -52,6 +53,30 @@ class KramerBot:
         # Login to Bluesky
         self.client.login(self.handle, self.app_password)
         logger.info(f"Logged in to Bluesky as {self.handle}")
+        
+        # Twitter credentials
+        self.twitter_api_key = os.getenv('TWITTER_API_KEY')
+        self.twitter_api_secret = os.getenv('TWITTER_API_SECRET')
+        self.twitter_access_token = os.getenv('TWITTER_ACCESS_TOKEN')
+        self.twitter_access_secret = os.getenv('TWITTER_ACCESS_SECRET')
+
+        if all([
+            self.twitter_api_key,
+            self.twitter_api_secret,
+            self.twitter_access_token,
+            self.twitter_access_secret,
+        ]):
+            auth = tweepy.OAuth1UserHandler(
+                self.twitter_api_key,
+                self.twitter_api_secret,
+                self.twitter_access_token,
+                self.twitter_access_secret,
+            )
+            self.twitter_api = tweepy.API(auth)
+            logger.info("Authenticated with Twitter API (X)")
+        else:
+            self.twitter_api = None
+            logger.warning("Twitter credentials not fully set. Twitter posting disabled.")
     
     def load_recent_posts(self) -> List[str]:
         """Load recent posts from cache file to avoid duplicates."""
@@ -131,6 +156,21 @@ The quote should:
         """Check if a quote is a duplicate of recent posts."""
         return quote in self.recent_posts
     
+    def post_to_twitter(self, quote: str) -> bool:
+        """Post the quote to Twitter (X). Returns True on success."""
+        if not self.twitter_api:
+            logger.info("Twitter API not configured; skipping tweet.")
+            return False
+        # Twitter has 280-character limit (including ‘…’). Truncate conservatively.
+        tweet_text = quote[:280]
+        try:
+            self.twitter_api.update_status(status=tweet_text)
+            logger.info("Tweeted quote to X (Twitter)")
+            return True
+        except Exception as e:
+            logger.error(f"Error tweeting quote: {e}")
+            return False
+
     def post_quote(self):
         """Generate and post a new Kramer quote to Bluesky."""
         try:
@@ -148,6 +188,8 @@ The quote should:
             
             # Post to Bluesky
             response = self.client.send_post(text=quote)
+            # Also post to Twitter
+            self.post_to_twitter(quote)
             
             # Add to recent posts cache
             self.recent_posts.append(quote)
