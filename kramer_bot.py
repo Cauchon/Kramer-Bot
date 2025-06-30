@@ -54,29 +54,25 @@ class KramerBot:
         self.client.login(self.handle, self.app_password)
         logger.info(f"Logged in to Bluesky as {self.handle}")
         
-        # Twitter credentials
-        self.twitter_api_key = os.getenv('TWITTER_API_KEY')
-        self.twitter_api_secret = os.getenv('TWITTER_API_SECRET')
-        self.twitter_access_token = os.getenv('TWITTER_ACCESS_TOKEN')
-        self.twitter_access_secret = os.getenv('TWITTER_ACCESS_SECRET')
-
-        if all([
-            self.twitter_api_key,
-            self.twitter_api_secret,
-            self.twitter_access_token,
-            self.twitter_access_secret,
-        ]):
-            auth = tweepy.OAuth1UserHandler(
-                self.twitter_api_key,
-                self.twitter_api_secret,
-                self.twitter_access_token,
-                self.twitter_access_secret,
-            )
-            self.twitter_api = tweepy.API(auth)
-            logger.info("Authenticated with Twitter API (X)")
+        # Twitter API v2 Client
+        self.twitter_client = None
+        twitter_bearer_token = os.getenv('TWITTER_BEARER_TOKEN')
+        
+        if twitter_bearer_token:
+            try:
+                self.twitter_client = tweepy.Client(
+                    bearer_token=twitter_bearer_token,
+                    consumer_key=os.getenv('TWITTER_API_KEY'),
+                    consumer_secret=os.getenv('TWITTER_API_SECRET'),
+                    access_token=os.getenv('TWITTER_ACCESS_TOKEN'),
+                    access_token_secret=os.getenv('TWITTER_ACCESS_SECRET')
+                )
+                logger.info("Initialized Twitter API v2 client")
+            except Exception as e:
+                logger.error(f"Error initializing Twitter client: {e}")
+                self.twitter_client = None
         else:
-            self.twitter_api = None
-            logger.warning("Twitter credentials not fully set. Twitter posting disabled.")
+            logger.warning("Twitter Bearer Token not found. Twitter posting disabled.")
     
     def load_recent_posts(self) -> List[str]:
         """Load recent posts from cache file to avoid duplicates."""
@@ -157,20 +153,43 @@ The quote should:
         return quote in self.recent_posts
     
     def post_to_twitter(self, quote: str) -> bool:
-        """Post the quote to Twitter (X). Returns True on success."""
-        if not self.twitter_api:
-            logger.info("Twitter API not configured; skipping tweet.")
+        """Post the quote to Twitter (X) using API v2. Returns True on success."""
+        if not self.twitter_client:
+            logger.info("Twitter client not configured; skipping tweet.")
             return False
-        # Twitter has 280-character limit (including ‘…’). Truncate conservatively.
+            
+        # Twitter has 280-character limit
         tweet_text = quote[:280]
+        
         try:
-            self.twitter_api.update_status(status=tweet_text)
-            logger.info("Tweeted quote to X (Twitter)")
-            return True
-        except Exception as e:
-            logger.error(f"Error tweeting quote: {e}")
+            response = self.twitter_client.create_tweet(text=tweet_text)
+            if response and response.data and response.data.get('id'):
+                logger.info(f"Successfully tweeted quote (ID: {response.data['id']})")
+                return True
+            else:
+                logger.error("Failed to get tweet ID from Twitter API response")
+                return False
+                
+        except tweepy.TweepyException as e:
+            if hasattr(e, 'response') and e.response is not None:
+                status_code = e.response.status_code
+                error_msg = str(e)
+                
+                if status_code == 403:
+                    logger.error("Twitter API Error: Authentication or permission error. "
+                               "Please check your API keys and app permissions.")
+                elif status_code == 401:
+                    logger.error("Twitter API Error: Invalid or expired credentials. "
+                               "Please check your Twitter API keys and access tokens.")
+                elif status_code == 429:
+                    logger.error("Twitter API Error: Rate limit exceeded. The bot will try again later.")
+                else:
+                    logger.error(f"Twitter API Error ({status_code}): {error_msg}")
+            else:
+                logger.error(f"Twitter API Error: {str(e)}")
+                
             return False
-
+    
     def post_quote(self):
         """Generate and post a new Kramer quote to Bluesky."""
         try:

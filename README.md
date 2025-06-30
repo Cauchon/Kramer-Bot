@@ -25,7 +25,7 @@ A Bluesky and X/Twitter bot that automatically posts fictional Cosmo Kramer quot
 
 1. **Bluesky Account**: You need a Bluesky account and an App Password
 2. **OpenAI API Key**: For generating quotes with gpt-4o-mini
-3. **Twitter API Access** (Optional): For cross-posting to Twitter (X)
+3. **Twitter API Access** (Optional): For cross-posting to Twitter (X) using API v2
 
 ### Local Development
 
@@ -47,15 +47,17 @@ A Bluesky and X/Twitter bot that automatically posts fictional Cosmo Kramer quot
    
    Edit `.env` with your credentials:
    ```
+   # Required
    BLUESKY_HANDLE=your-handle.bsky.social
    BLUESKY_APP_PASSWORD=your-app-password
    OPENAI_API_KEY=your-openai-api-key
-   
-   # Optional Twitter API credentials
-   TWITTER_API_KEY=your-twitter-api-key
-   TWITTER_API_SECRET=your-twitter-api-secret
-   TWITTER_ACCESS_TOKEN=your-twitter-access-token
-   TWITTER_ACCESS_SECRET=your-twitter-access-secret
+
+   # Twitter API v2 (Optional)
+   TWITTER_BEARER_TOKEN=your-bearer-token
+   TWITTER_API_KEY=your-api-key
+   TWITTER_API_SECRET=your-api-secret
+   TWITTER_ACCESS_TOKEN=your-access-token
+   TWITTER_ACCESS_SECRET=your-access-secret
    ```
 
 4. **Run the bot**:
@@ -70,7 +72,35 @@ A Bluesky and X/Twitter bot that automatically posts fictional Cosmo Kramer quot
 3. Create a new app password
 4. Use this password in your `.env` file
 
-## Deployment on Render.com
+### Setting Up Twitter API v2
+
+1. Go to the [Twitter Developer Portal](https://developer.twitter.com/en/portal/dashboard)
+2. Create a new Project and App
+3. Under "User authentication settings":
+   - Enable OAuth 2.0
+   - Set App permissions to "Read and Write"
+   - Set Type of App to "Web App, Automated App or Bot"
+   - Set Callback URI to `https://localhost`
+   - Set Website URL to `https://github.com/Cauchon/Kramer-Bot`
+4. Go to "Keys and tokens" and generate:
+   - API Key and Secret
+   - Access Token and Secret
+   - Bearer Token (under "Authentication Tokens")
+
+### Testing Your Setup
+
+1. Run the test script to verify your configuration:
+   ```bash
+   python test_bot.py
+   ```
+
+2. The bot will test:
+   - Environment variables
+   - OpenAI API connection
+   - Fallback quotes
+   - Twitter API configuration (if provided)
+
+### Deployment on Render.com
 
 1. **Connect your repository** to Render.com
 2. **Create a new Worker Service**
@@ -83,6 +113,11 @@ A Bluesky and X/Twitter bot that automatically posts fictional Cosmo Kramer quot
    - `BLUESKY_HANDLE`
    - `BLUESKY_APP_PASSWORD`
    - `OPENAI_API_KEY`
+   - `TWITTER_BEARER_TOKEN` (if using Twitter API v2)
+   - `TWITTER_API_KEY` (if using Twitter API v2)
+   - `TWITTER_API_SECRET` (if using Twitter API v2)
+   - `TWITTER_ACCESS_TOKEN` (if using Twitter API v2)
+   - `TWITTER_ACCESS_SECRET` (if using Twitter API v2)
 
 5. **Deploy**! The bot will start posting every 3 hours.
 

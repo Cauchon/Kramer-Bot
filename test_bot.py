@@ -96,6 +96,7 @@ def test_environment_variables():
     
     # Optional Twitter API variables
     twitter_vars = [
+        'TWITTER_BEARER_TOKEN',
         'TWITTER_API_KEY',
         'TWITTER_API_SECRET',
         'TWITTER_ACCESS_TOKEN',
@@ -123,8 +124,12 @@ def test_environment_variables():
         if missing:
             print(f"⚠️  Twitter API partially configured. Missing: {', '.join(missing)}")
             twitter_status = "Partially Configured"
+            
+            # Check if at least Bearer Token is set (required for v2)
+            if not os.getenv('TWITTER_BEARER_TOKEN'):
+                print("❌ TWITTER_BEARER_TOKEN is required for Twitter API v2")
         else:
-            print("✅ Twitter API fully configured")
+            print("✅ Twitter API v2 fully configured")
             twitter_status = "Fully Configured"
     else:
         print("ℹ️  Twitter API not configured (optional)")
