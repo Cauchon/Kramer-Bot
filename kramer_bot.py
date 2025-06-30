@@ -101,7 +101,7 @@ class KramerBot:
         prompt = """Generate a short, punchy quote from Cosmo Kramer (from Seinfeld) as if he's living in present day. 
 
 The quote should:
-- Be under 300 characters
+- Be under 280 characters (for Twitter compatibility)
 - Reflect Kramer's eccentric personality and speaking style
 - Include modern technology, trends, or culture
 - Be self-contained and funny

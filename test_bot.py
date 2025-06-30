@@ -22,7 +22,7 @@ def test_quote_generation():
     prompt = """Generate a short, punchy quote from Cosmo Kramer (from Seinfeld) as if he's living in present day. 
 
 The quote should:
-- Be under 300 characters
+- Be under 280 characters (for Twitter compatibility)
 - Reflect Kramer's eccentric personality and speaking style
 - Include modern technology, trends, or culture
 - Be self-contained and funny
@@ -52,10 +52,10 @@ The quote should:
         print(f"📝 Generated quote: {quote}")
         print(f"📏 Character count: {len(quote)}")
         
-        if len(quote) > 300:
-            print("⚠️  Warning: Quote exceeds 300 character limit")
+        if len(quote) > 280:
+            print("⚠️  Warning: Quote exceeds 280 character limit (Twitter limit)")
         else:
-            print("✅ Quote within character limit")
+            print("✅ Quote within 280 character limit (Twitter compatible)")
         
         return True
         
@@ -94,7 +94,19 @@ def test_environment_variables():
         'OPENAI_API_KEY'
     ]
     
+    # Optional Twitter API variables
+    twitter_vars = [
+        'TWITTER_API_KEY',
+        'TWITTER_API_SECRET',
+        'TWITTER_ACCESS_TOKEN',
+        'TWITTER_ACCESS_SECRET'
+    ]
+    
+    # Check if any Twitter credentials are set
+    twitter_configured = any(os.getenv(var) for var in twitter_vars)
+    
     all_set = True
+    # Test required variables
     for var in required_vars:
         value = os.getenv(var)
         if value:
@@ -103,7 +115,22 @@ def test_environment_variables():
             print(f"❌ {var}: Not set")
             all_set = False
     
-    return all_set
+    # Test Twitter variables
+    print("\n🔍 Twitter API Configuration:")
+    twitter_status = ""
+    if twitter_configured:
+        missing = [var for var in twitter_vars if not os.getenv(var)]
+        if missing:
+            print(f"⚠️  Twitter API partially configured. Missing: {', '.join(missing)}")
+            twitter_status = "Partially Configured"
+        else:
+            print("✅ Twitter API fully configured")
+            twitter_status = "Fully Configured"
+    else:
+        print("ℹ️  Twitter API not configured (optional)")
+        twitter_status = "Not Configured"
+    
+    return all_set, twitter_status
 
 def main():
     """Run all tests."""
@@ -111,7 +138,7 @@ def main():
     print("=" * 50)
     
     # Test environment variables
-    env_ok = test_environment_variables()
+    env_ok, twitter_status = test_environment_variables()
     print()
     
     # Test OpenAI API
@@ -127,6 +154,7 @@ def main():
     print(f"Environment variables: {'✅' if env_ok else '❌'}")
     print(f"OpenAI API: {'✅' if openai_ok else '❌'}")
     print(f"Fallback quotes: {'✅' if fallback_ok else '❌'}")
+    print(f"Twitter API: {twitter_status}")
     
     if all([env_ok, openai_ok, fallback_ok]):
         print("\n🎉 All tests passed! The bot should work correctly.")
