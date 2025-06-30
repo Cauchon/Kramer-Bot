@@ -15,7 +15,11 @@ import random
 
 import openai
 import tweepy
-from atproto import Client, RichText
+from atproto import Client
+try:
+    from atproto import RichText
+except ImportError:  # Older atproto version without RichText helper
+    RichText = None
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -205,10 +209,14 @@ The quote should:
                 logger.warning("Could not generate unique quote after max attempts, using fallback")
                 quote = self.get_fallback_quote()
             
-            # Post to Bluesky with richer facets (clickable hashtags)
-            rt = RichText(text=quote)
-            rt.detect_facets()
-            response = self.client.send_post(text=rt.text, facets=rt.facets)
+                        # Post to Bluesky
+            if RichText:
+                rt = RichText(text=quote)
+                rt.detect_facets()
+                response = self.client.send_post(text=rt.text, facets=rt.facets)
+            else:
+                # Fallback to plain text if RichText not available
+                response = self.client.send_post(text=quote)
             # Also post to Twitter
             self.post_to_twitter(quote)
             
