@@ -19,39 +19,16 @@ def test_quote_generation():
         print("❌ OPENAI_API_KEY not found in environment variables")
         return False
     
-    prompt = """Generate a short, punchy quote from Cosmo Kramer (from Seinfeld) as if he's living in present day. 
+    prompt = """Generate a short, punchy quote from Cosmo Kramer (from Seinfeld) as if he's living in 2025. 
 
 The quote should:
-- Be under 280 characters (for Twitter compatibility)
+- Be under 280 characters
 - Do not include quotations before and after the quote
 - Reflect Kramer's eccentric personality and speaking style
-- Include modern technology, trends, or culture
-- Be self-contained and funny
-- Feel like natural Kramer dialogue
-- Include his characteristic enthusiasm and bizarre logic
-
-Examples of Kramer's style and tone:
-"I tried to make my own oat milk… I milked the oats, Jerry! But they just got soggy!"
-"I used AI to write my résumé… now I'm overqualified and British!"
-"I sold my neighbor an NFT of his own front door. It's art!"
-"I tried intermittent fasting, Jerry. But I kept sleeping through the eating window!”
-"You ever yell at your smart fridge? It remembers! It's holding a grudge!"
-"I subscribed to twelve OnlyFans. Now they're mad I'm not exclusive!"
-"I signed up for crypto yoga—every pose is a gamble. I lost three grand in downward dog!"
-"I bought a bidet on Prime Day—now I can't look my toilet in the eye!"
-"I got a smartwatch, Jerry. It told me to breathe—while I was already breathing! Now I'm overthinking it!"
-"You ever get a push notification that feels personal? My bank just mocked my savings"
-"You ever ghost a spam caller, Jerry? They called back apologizing! Said they missed me!"
-"George started microdosing and now he thinks he's emotionally fluent. He cried during a car commercial, Jerry!”
-"Jerry's fridge has an Instagram account now. It keeps tagging me in posts like 'Guess who ate all the olives?' It's bullying me!"
-"George joined a virtual reality gym—last week he pulled a hamstring in the metaverse!"
-"I asked ChatGPT to write a love letter for Newman. Now his Roomba's in love with him. It follows him to the shower!"
-"I started microdosing, Jerry—vitamins, not shrooms! But now I can hear my multivitamin talking to me. It's coaching me through traffic!"
-"I joined the metaverse… but I forgot to leave. Now my avatar has a job and a gym membership!"
-"I started using a budget app. It told me to break up with coffee and move back in with my parents!"
-"I started a podcast about silence. First episode is just me chewing grapes!"   
-"I bought an air fryer. Now I'm air-frying water just to see if I can break the laws of physics!"
-"I tried remote work, but my neighbor's parrot keeps yelling 'You're fired!' during meetings!"
+- Be funny, self-contained, and a little absurd
+- Avoid clichés like NFTs, smart appliances, dating apps, Zoom, meditation, and generic AI references
+- Focus on lesser-discussed aspects of modern life, such as climate quirks, changing cities, lifestyle trends, new etiquette rules, cultural confusion, urban chaos, generational behavior, bizarre wellness trends, or aging tech
+- Feel like something Kramer would actually say in a chaotic rant to Jerry or the gang
 """
 
     try:
