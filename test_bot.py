@@ -7,7 +7,6 @@ import os
 import sys
 from dotenv import load_dotenv
 import openai
-from prompt import KRAMER_SYSTEM_MESSAGE, KRAMER_QUOTE_PROMPT
 
 # Load environment variables
 load_dotenv()
@@ -20,13 +19,24 @@ def test_quote_generation():
         print("❌ OPENAI_API_KEY not found in environment variables")
         return False
     
-    prompt = KRAMER_QUOTE_PROMPT
+    prompt = """Generate a short, punchy quote from Cosmo Kramer (from Seinfeld) as if he's living in 2025. 
+
+The quote should:
+- Be under 280 characters
+- Do not include quotations before and after the quote
+- Reflect Kramer's eccentric personality and speaking style
+- Be funny, self-contained, and a little absurd
+- Avoid clichés like NFTs, smart appliances, dating apps, Zoom, meditation, and generic AI references
+- Focus on lesser-discussed aspects of modern life, such as climate quirks, changing cities, lifestyle trends, new etiquette rules, cultural confusion, urban chaos, generational behavior, bizarre wellness trends, or aging tech
+- Feel like something Kramer would actually say in a chaotic rant to Jerry or the gang
+"""
+
     try:
         print("🤖 Testing OpenAI API connection...")
         response = openai.ChatCompletion.create(
             model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": KRAMER_SYSTEM_MESSAGE},
+                {"role": "system", "content": "You are Cosmo Kramer from Seinfeld, transported into the present day. Speak with your trademark chaotic energy, eccentric logic, and offbeat charm. You're fascinated—and confused—by modern technology, trends, and culture"},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=150,

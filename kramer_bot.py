@@ -21,7 +21,6 @@ try:
 except ImportError:  # Older atproto version without RichText helper
     RichText = None
 from dotenv import load_dotenv
-from prompt import KRAMER_SYSTEM_MESSAGE, KRAMER_QUOTE_PROMPT
 
 # Load environment variables
 load_dotenv()
@@ -99,12 +98,23 @@ class KramerBot:
     
     def generate_kramer_quote(self) -> str:
         """Generate a new Kramer quote using OpenAI."""
-        prompt = KRAMER_QUOTE_PROMPT
+        prompt = """Generate a short, punchy quote from Cosmo Kramer (from Seinfeld) as if he's living in 2025. 
+
+The quote should:
+- Be under 280 characters
+- Do not include quotations before and after the quote
+- Reflect Kramer's eccentric personality and speaking style
+- Be funny, self-contained, and a little absurd
+- Avoid clichés like NFTs, smart appliances, dating apps, Zoom, meditation, and generic AI references
+- Focus on lesser-discussed aspects of modern life, such as climate quirks, changing cities, lifestyle trends, new etiquette rules, cultural confusion, urban chaos, generational behavior, bizarre wellness trends, or aging tech
+- Feel like something Kramer would actually say in a chaotic rant to Jerry or the gang
+"""
+
         try:
             response = openai.ChatCompletion.create(
                 model="gpt-4o-mini",
                 messages=[
-                    {"role": "system", "content": KRAMER_SYSTEM_MESSAGE},
+                    {"role": "system", "content": "You are Cosmo Kramer from Seinfeld, transported into the present day. Speak with your trademark chaotic energy, eccentric logic, and offbeat charm. You're fascinated—and confused—by modern technology, trends, and culture "},
                     {"role": "user", "content": prompt}
                 ],
                 max_tokens=150,
@@ -226,11 +236,12 @@ class KramerBot:
             return False
     
     def run_scheduler(self):
-        """Run the scheduler to post every 1 hour."""
+        """Run the scheduler to post every 2 hours 34 minutes."""
         logger.info("Starting Kramer Bot scheduler...")
         
-        # Schedule posts every 1 hour
-        schedule.every(1).hours.do(self.post_quote)
+        # Schedule posts every 2 hours 34 minutes
+        schedule.every(2).hours.do(self.post_quote)
+        schedule.every(34).minutes.do(self.post_quote)
         
         # Post immediately on startup
         logger.info("Posting initial quote...")
