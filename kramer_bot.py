@@ -210,7 +210,7 @@ The quote should:
                 logger.warning("Could not generate unique quote after max attempts, using fallback")
                 quote = self.get_fallback_quote()
             
-                        # Post to Bluesky
+            # Post to Bluesky
             if RichText:
                 rt = RichText(text=quote)
                 rt.detect_facets()
@@ -236,12 +236,11 @@ The quote should:
             return False
     
     def run_scheduler(self):
-        """Run the scheduler to post every 2 hours 34 minutes."""
+        """Run the scheduler to post every 154 minutes (2 hours 34 minutes)."""
         logger.info("Starting Kramer Bot scheduler...")
         
-        # Schedule posts every 2 hours 34 minutes
-        schedule.every(2).hours.do(self.post_quote)
-        schedule.every(34).minutes.do(self.post_quote)
+        # Schedule posts every 154 minutes (2 hours 34 minutes)
+        schedule.every(154).minutes.do(self.post_quote)
         
         # Post immediately on startup
         logger.info("Posting initial quote...")
