@@ -9,9 +9,11 @@ services:
         sync: false
       - key: BLUESKY_APP_PASSWORD
         sync: false
-      - key: OPENAI_API_KEY
+      - key: GEMINI_API_KEY
         sync: false
       # Optional Twitter API credentials
+      - key: TWITTER_BEARER_TOKEN
+        sync: false
       - key: TWITTER_API_KEY
         sync: false
       - key: TWITTER_API_SECRET
@@ -20,4 +22,3 @@ services:
         sync: false
       - key: TWITTER_ACCESS_SECRET
         sync: false
-        sync: false 

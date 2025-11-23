@@ -43,3 +43,7 @@ ENV/
 # OS
 .DS_Store
 Thumbs.db 
+
+# OTHER
+RASPBERRY_PI.md
+kramer_bot.service

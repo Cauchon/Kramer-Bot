@@ -1,0 +1,15 @@
+[Unit]
+Description=Kramer Bot
+After=network.target
+
+[Service]
+User=cauchon
+WorkingDirectory=/home/cauchon/Kramer-Bot
+ExecStart=/home/cauchon/Kramer-Bot/venv/bin/python /home/cauchon/Kramer-Bot/kramer_bot.py
+Restart=always
+RestartSec=10
+# Load environment variables from .env file
+EnvironmentFile=/home/cauchon/Kramer-Bot/.env
+
+[Install]
+WantedBy=multi-user.target
