@@ -1,30 +1,31 @@
 # Kramer Bot 🤖
 
-A Bluesky and X/Twitter bot that automatically posts fictional Cosmo Kramer quotes every 3 hours, as if he were living in 2025 and experiencing modern technology and culture.
+A Bluesky and X/Twitter bot that automatically posts fictional Cosmo Kramer quotes every hour, as if he were commenting on modern life in 2025 with his signature eccentric, high-energy, and scheme-hatching perspective.
 
 ## Features
 
 - **Cross-platform posting**: Posts to both Bluesky and Twitter (X)
 - **Automatic scheduling**: Posts every hour using a scheduler
-- **AI-generated quotes**: Uses gpt-4o-mini to create unique, in-character Kramer quotes
+- **AI-generated quotes**: Uses Google's Gemini (gemini-1.5-flash) to create unique, in-character Kramer quotes
 - **Duplicate prevention**: Caches recent posts to avoid repeats
-- **Modern context**: Quotes reference current technology (AirPods, TikTok, AI, Zoom, etc.)
-- **Easy deployment**: Ready to deploy,
+- **Modern context**: Quotes reference current technology (AirPods, TikTok, AI, Zoom, etc.) but with Kramer's unique twist
+- **Easy deployment**: Ready to deploy
 - **Fallback system**: Includes backup quotes if AI generation fails
 
 ## Example Quotes
 
-- "I tried to make my own oat milk… I milked the oats, Jerry! But they just got soggy!"
-- "You ever been in a Zoom breakout room, Jerry? It's like being trapped in an elevator… with no buttons!"
-- "I sold my neighbor an NFT of his own front door. It's art, Jerry!"
-- "I was tracking my steps with a smart ring… now it thinks I'm a hummingbird!"
+- "I'm out there, Jerry, and I'm loving every minute of it!"
+- "The bus is the only way to fly! You get to see the people, Jerry. The real people!"
+- "My friend Bob Sacamano, he eats the whole apple. Core, stem, seeds, everything. He says it's where the power is!"
+- "I'm preparing a salad as we speak in the shower! It's a multitasking revolution!"
+- "Levels, Jerry! I'm building levels! Carpeted levels!"
 
 ## Setup
 
 ### Prerequisites
 
 1. **Bluesky Account**: You need a Bluesky account and an App Password
-2. **OpenAI API Key**: For generating quotes with gpt-4o-mini
+2. **Google Cloud API Key**: For generating quotes with Gemini
 3. **Twitter API Access** (Optional): For cross-posting to Twitter (X) using API v2
 
 ### Local Development
@@ -50,7 +51,7 @@ A Bluesky and X/Twitter bot that automatically posts fictional Cosmo Kramer quot
    # Required
    BLUESKY_HANDLE=your-handle.bsky.social
    BLUESKY_APP_PASSWORD=your-app-password
-   OPENAI_API_KEY=your-openai-api-key
+   GEMINI_API_KEY=your-gemini-api-key
 
    # Twitter API v2 (Optional)
    TWITTER_BEARER_TOKEN=your-bearer-token
@@ -96,7 +97,7 @@ A Bluesky and X/Twitter bot that automatically posts fictional Cosmo Kramer quot
 
 2. The bot will test:
    - Environment variables
-   - OpenAI API connection
+   - Gemini API connection
    - Fallback quotes
    - Twitter API configuration (if provided)
 
@@ -112,14 +113,14 @@ A Bluesky and X/Twitter bot that automatically posts fictional Cosmo Kramer quot
 4. **Add environment variables** in Render dashboard:
    - `BLUESKY_HANDLE`
    - `BLUESKY_APP_PASSWORD`
-   - `OPENAI_API_KEY`
+   - `GEMINI_API_KEY`
    - `TWITTER_BEARER_TOKEN` (if using Twitter API v2)
    - `TWITTER_API_KEY` (if using Twitter API v2)
    - `TWITTER_API_SECRET` (if using Twitter API v2)
    - `TWITTER_ACCESS_TOKEN` (if using Twitter API v2)
    - `TWITTER_ACCESS_SECRET` (if using Twitter API v2)
 
-5. **Deploy**! The bot will start posting every 3 hours.
+5. **Deploy**! The bot will start posting every hour.
 
 ## Configuration
 
@@ -132,9 +133,9 @@ schedule.every(1).hours.do(self.post_quote)
 
 ### Quote Generation
 - **Character limit**: 280 characters (Twitter-compatible)
-- **AI model**: gpt-4o-mini
-- **Temperature**: 0.9 (for creativity)
-- **Fallback quotes**: 5 pre-written quotes if AI fails
+- **AI model**: gemini-flash-latest
+- **Temperature**: Default (creative)
+- **Fallback quotes**: 6 pre-written quotes if AI fails
 
 ### Duplicate Prevention
 - **Cache size**: Last 100 posts
@@ -145,11 +146,11 @@ schedule.every(1).hours.do(self.post_quote)
 
 ```
 Kramer-Bot/
-├── kramer_bot.py          # Main bot script
-├── test_bot.py           # Test script for verification
-├── requirements.txt       # Python dependencies
-├── render.yaml           # Render.com deployment config
-├── env.example           # Environment variables template
+├── kramer_bot.py        # Main bot script
+├── test_bot.py          # Test script for verification
+├── requirements.txt     # Python dependencies
+├── render.yaml          # Render.com deployment config
+├── env.example          # Environment variables template
 ├── README.md            # This file
 └── recent_posts.json    # Generated cache file
 ```
@@ -163,14 +164,7 @@ The bot logs all activities to:
 ## Customization
 
 ### Adding More Fallback Quotes
-Edit the `get_fallback_quote()` method in `kramer_bot.py`:
-
-```python
-fallback_quotes = [
-    "Your new quote here, Jerry!",
-    # ... existing quotes
-]
-```
+Edit the `get_fallback_quote()` method in `kramer_bot.py`.
 
 ### Modifying the AI Prompt
 Edit the `generate_kramer_quote()` method to change the quote style or topics.
@@ -183,7 +177,7 @@ Modify the scheduler in `run_scheduler()` method.
 ### Common Issues
 
 1. **Authentication errors**: Check your Bluesky handle and app password
-2. **API rate limits**: The bot includes retry logic for OpenAI API
+2. **API rate limits**: The bot includes retry logic for Gemini API
 3. **Duplicate posts**: Check the `recent_posts.json` cache file
 4. **Deployment issues**: Ensure all environment variables are set in Render
 
@@ -203,4 +197,4 @@ This project is open source. Feel free to use and modify as needed.
 
 ---
 
-*"I'm telling you, Jerry, this bot is going to be huge!"* - Cosmo Kramer
+*"Giddyup!"* - Cosmo Kramer

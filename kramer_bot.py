@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Kramer Bot - A Bluesky bot that posts fictional Cosmo Kramer quotes
-Posts every hour with modern-day observations and schemes
+Posts every hour with eccentric observations and wild schemes
 """
 
 import os
@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
 from typing import List, Optional
 import random
 
-import openai
+import google.generativeai as genai
 import tweepy
 from atproto import Client
 try:
@@ -48,11 +48,13 @@ class KramerBot:
         self.handle = os.getenv('BLUESKY_HANDLE')
         self.app_password = os.getenv('BLUESKY_APP_PASSWORD')
         
-        # OpenAI configuration
-        openai.api_key = os.getenv('OPENAI_API_KEY')
+        # Gemini configuration
+        self.gemini_api_key = os.getenv('GEMINI_API_KEY')
         
-        if not all([self.handle, self.app_password, openai.api_key]):
-            raise ValueError("Missing required environment variables. Check BLUESKY_HANDLE, BLUESKY_APP_PASSWORD, and OPENAI_API_KEY")
+        if not all([self.handle, self.app_password, self.gemini_api_key]):
+            raise ValueError("Missing required environment variables. Check BLUESKY_HANDLE, BLUESKY_APP_PASSWORD, and GEMINI_API_KEY")
+
+        genai.configure(api_key=self.gemini_api_key)
         
         # Login to Bluesky
         self.client.login(self.handle, self.app_password)
@@ -97,31 +99,50 @@ class KramerBot:
             logger.error(f"Could not save recent posts cache: {e}")
     
     def generate_kramer_quote(self) -> str:
-        """Generate a new Kramer quote using OpenAI."""
-        prompt = """Generate a short, punchy quote from Cosmo Kramer (from Seinfeld) as if he's living in 2025. 
+        """Generate a new Cosmo Kramer quote using Gemini."""
+        prompt = """You are Cosmo Kramer from Seinfeld. You are eccentric, high-energy, and prone to wild schemes and physical comedy. 
+    You often burst into rooms, have strange friends like Bob Sacamano and Lomez, and have unique, often bizarre, takes on everyday life.
+    You use catchphrases like "Giddyup!" and "Oh yeah!" but use them naturally, not every time.
+    
+    Generate a short, funny quote as if you're Kramer. Make it sound exactly like something he would say.
+    It should be manic, observational, or involve a crazy idea.
+    
+    - Be under 281 characters (Twitter/X-friendly)
+    - Reflect Kramer's frantic, hipster doofus energy
+    - Mention things like fruit, the mail, levels, concrete, or your unseen friends (Bob Sacamano, Lomez) occasionally
+    - Feel like he's explaining a scheme to Jerry or George
+    - Do NOT start every quote with "Jerry"
+    - Be self-contained and funny
+    - Do not include quotation marks before or after the quote
 
-The quote should:
-- Be under 280 characters
-- Do not include quotations before and after the quote
-- Reflect Kramer's eccentric personality and speaking style
-- Be funny, self-contained, and a little absurd
-- Avoid clichés like NFTs, smart appliances, dating apps, Zoom, meditation, and generic AI references
-- Focus on lesser-discussed aspects of modern life, such as climate quirks, changing cities, lifestyle trends, new etiquette rules, cultural confusion, urban chaos, generational behavior, bizarre wellness trends, or aging tech
-- Feel like something Kramer would actually say in a chaotic rant to Jerry or the gang
-"""
+    Examples:
+    
+    - "I'm out there, Jerry, and I'm loving every minute of it!"
+    
+    - "The bus is the only way to fly! You get to see the people, Jerry. The real people!"
+    
+    - "My friend Bob Sacamano, he eats the whole apple. Core, stem, seeds, everything. He says it's where the power is!"
+    
+    - "I'm preparing a salad as we speak in the shower! It's a multitasking revolution!"
+    
+    - "Levels, Jerry! I'm building levels! Carpeted levels!"
 
+    - "You know, the pig man is real. The government's been experimenting with pig men since the fifties!"
+
+    - "I'm discontinuing the bagel. It's too much dough! It's a dough overload!"
+
+    - "Giddyup!"
+
+    - "I've got the body of a taut, pre-teen Swedish boy."
+
+    - "Why go to the park and fly a kite when you can just pop a pill?"
+    """
+        
         try:
-            response = openai.ChatCompletion.create(
-                model="gpt-5-mini",
-                messages=[
-                    {"role": "system", "content": "You are Cosmo Kramer from Seinfeld, transported into the present day. Speak with your trademark chaotic energy, eccentric logic, and offbeat charm."},
-                    {"role": "user", "content": prompt}
-                ],
-                max_tokens=150,
-                temperature=0.9
-            )
+            model = genai.GenerativeModel('gemini-flash-latest')
+            response = model.generate_content(prompt)
             
-            quote = response.choices[0].message.content.strip()
+            quote = response.text.strip()
             
             # Clean up the quote
             if quote.startswith('"') and quote.endswith('"'):
@@ -134,22 +155,14 @@ The quote should:
             return self.get_fallback_quote()
     
     def get_fallback_quote(self) -> str:
-        """Return a fallback quote if AI generation fails."""
+        """Return a fallback Kramer quote if AI generation fails."""
         fallback_quotes = [
-            "I tried to make my own oat milk… I milked the oats, Jerry! But they just got soggy!",
-            "You ever been in a Zoom breakout room, Jerry? It's like being trapped in an elevator… with no buttons!",
-            "I sold my neighbor an NFT of his own front door. It's art, Jerry!",
-            "I was tracking my steps with a smart ring… now it thinks I'm a hummingbird!",
-            "You know what the problem is with AI girlfriends? No garlic breath! It's unnatural!",
-            "These AirPods are like having tiny robots in your ears, Jerry!",
-            "I started a TikTok about my coffee table. It's got 3 followers - me, you, and the table!",
-            "I tried to order oat milk at Starbucks, Jerry. They looked at me like I was from Mars!",
-            "You ever notice how everyone's on their phone at the gym? It's like a digital workout!",
-            "I bought a smart fridge, Jerry. Now it's judging my food choices!",
-            "These delivery apps are like having a personal butler, Jerry. But the butler's always late!",
-            "I tried to use voice commands on my TV, Jerry. Now it thinks I'm yelling at it!",
-            "You ever been to a virtual happy hour? It's like talking to ghosts, Jerry!",
-            "I started a podcast about nothing, Jerry. It's perfect!"
+            "I'm out there, Jerry, and I'm loving every minute of it!",
+            "Giddyup!",
+            "My friend Bob Sacamano called me at 3 AM. He says the sewers are the new subway!",
+            "I'm implementing a reverse-peephole. I want to see what's going on in my own apartment when I'm not there!",
+            "The kavorka, Jerry! The lure of the animal! I'm dangerous!",
+            "I'm retiring! I'm moving to Del Boca Vista! I'm gonna be in the pool, I'm gonna be in the clubhouse, I'm gonna be all over that shuffleboard court!"
         ]
         return random.choice(fallback_quotes)
     
@@ -195,6 +208,29 @@ The quote should:
                 
             return False
     
+    def post_to_bluesky(self, text: str) -> bool:
+        """Post the given text to Bluesky."""
+        try:
+            # Use RichText if available for better formatting
+            if RichText is not None:
+                rt = RichText(text)
+                rt.detect_links()
+                post = self.client.send_post(text=rt.text, facets=rt.facets)
+            else:
+                post = self.client.send_post(text=text)
+            
+            post_uri = post.uri
+            self.recent_posts.append(text)
+            # Keep only the most recent posts in cache
+            if len(self.recent_posts) > self.max_cache_size:
+                self.recent_posts = self.recent_posts[-self.max_cache_size:]
+            self.save_recent_posts()
+            logger.info(f"Posted to Bluesky: {text}")
+            return True
+        except Exception as e:
+            logger.error(f"Error posting to Bluesky: {e}")
+            return False
+    
     def post_quote(self):
         """Generate and post a new Kramer quote to Bluesky."""
         try:
@@ -211,22 +247,10 @@ The quote should:
                 quote = self.get_fallback_quote()
             
             # Post to Bluesky
-            if RichText:
-                rt = RichText(text=quote)
-                rt.detect_facets()
-                response = self.client.send_post(text=rt.text, facets=rt.facets)
-            else:
-                # Fallback to plain text if RichText not available
-                response = self.client.send_post(text=quote)
+            self.post_to_bluesky(quote)
+            
             # Also post to Twitter
             self.post_to_twitter(quote)
-            
-            # Add to recent posts cache
-            self.recent_posts.append(quote)
-            if len(self.recent_posts) > self.max_cache_size:
-                self.recent_posts = self.recent_posts[-self.max_cache_size:]
-            
-            self.save_recent_posts()
             
             logger.info(f"Posted quote: {quote}")
             return True
@@ -236,11 +260,11 @@ The quote should:
             return False
     
     def run_scheduler(self):
-        """Run the scheduler to post every 154 minutes (2 hours 34 minutes)."""
+        """Run the scheduler to post every 1 hour."""
         logger.info("Starting Kramer Bot scheduler...")
         
-        # Schedule posts every 154 minutes (2 hours 34 minutes)
-        schedule.every(154).minutes.do(self.post_quote)
+        # Schedule posts every 1 hour
+        schedule.every(1).hours.do(self.post_quote)
         
         # Post immediately on startup
         logger.info("Posting initial quote...")
@@ -263,4 +287,4 @@ def main():
         raise
 
 if __name__ == "__main__":
-    main() 
+    main()
