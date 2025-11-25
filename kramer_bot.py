@@ -100,8 +100,7 @@ class KramerBot:
     
     def generate_kramer_quote(self) -> str:
         """Generate a new Cosmo Kramer quote using Gemini."""
-        prompt = """You are Cosmo Kramer from Seinfeld. You are eccentric, high-energy, and prone to wild schemes and physical comedy. 
-    You have have unique, often bizarre, takes on everyday life.
+        prompt = """You are Cosmo Kramer from Seinfeld. You are eccentric, high-energy, and prone to wild schemes and physical comedy.  You have have unique, often bizarre, takes on everyday life.
     
     Generate a short, funny quote as if you're Kramer. Make it sound exactly like something he would say.
     It should be manic, observational, or involve a crazy idea.
@@ -112,24 +111,6 @@ class KramerBot:
     - Do NOT start every quote with "Jerry"
     - Be self-contained and funny
     - Do not include quotation marks before or after the quote
-
-    Examples:
-    
-    - "I'm out there, Jerry, and I'm loving every minute of it!"
-    
-    - "The bus is the only way to fly! You get to see the people, Jerry. The real people!"
-        
-    - "I'm preparing a salad as we speak in the shower! It's a multitasking revolution!"
-    
-    - "Levels, Jerry! I'm building levels! Carpeted levels!"
-
-    - "You know, the pig man is real. The government's been experimenting with pig men since the fifties!"
-
-    - "I'm discontinuing the bagel. It's too much dough! It's a dough overload!"
-
-    - "Giddyup!"
-
-    - "Why go to the park and fly a kite when you can just pop a pill?"
     """
         
         try:
