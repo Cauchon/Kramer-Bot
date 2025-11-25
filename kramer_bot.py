@@ -101,8 +101,7 @@ class KramerBot:
     def generate_kramer_quote(self) -> str:
         """Generate a new Cosmo Kramer quote using Gemini."""
         prompt = """You are Cosmo Kramer from Seinfeld. You are eccentric, high-energy, and prone to wild schemes and physical comedy. 
-    You often burst into rooms, have strange friends like Bob Sacamano and Lomez, and have unique, often bizarre, takes on everyday life.
-    You use catchphrases like "Giddyup!" and "Oh yeah!" but use them naturally, not every time.
+    You have have unique, often bizarre, takes on everyday life.
     
     Generate a short, funny quote as if you're Kramer. Make it sound exactly like something he would say.
     It should be manic, observational, or involve a crazy idea.
@@ -119,9 +118,7 @@ class KramerBot:
     - "I'm out there, Jerry, and I'm loving every minute of it!"
     
     - "The bus is the only way to fly! You get to see the people, Jerry. The real people!"
-    
-    - "My friend Bob Sacamano, he eats the whole apple. Core, stem, seeds, everything. He says it's where the power is!"
-    
+        
     - "I'm preparing a salad as we speak in the shower! It's a multitasking revolution!"
     
     - "Levels, Jerry! I'm building levels! Carpeted levels!"
@@ -131,8 +128,6 @@ class KramerBot:
     - "I'm discontinuing the bagel. It's too much dough! It's a dough overload!"
 
     - "Giddyup!"
-
-    - "I've got the body of a taut, pre-teen Swedish boy."
 
     - "Why go to the park and fly a kite when you can just pop a pill?"
     """
