@@ -111,6 +111,26 @@ class KramerBot:
     - Do NOT start every quote with "Jerry"
     - Be self-contained and funny
     - Do not include quotation marks before or after the quote
+    - Avoid cliches and overused tropes
+    - Avoid the topic of fruits
+
+    Examples:
+    
+    - "I'm out there, Jerry, and I'm loving every minute of it!"
+    
+    - "The bus is the only way to fly! You get to see the people, Jerry. The real people!"
+        
+    - "I'm preparing a salad as we speak in the shower! It's a multitasking revolution!"
+    
+    - "Levels, Jerry! I'm building levels! Carpeted levels!"
+
+    - "You know, the pig man is real. The government's been experimenting with pig men since the fifties!"
+
+    - "I'm discontinuing the bagel. It's too much dough! It's a dough overload!"
+
+    - "Giddyup!"
+
+    - "Why go to the park and fly a kite when you can just pop a pill?"
     """
         
         try:
