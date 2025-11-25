@@ -109,7 +109,6 @@ class KramerBot:
     
     - Be under 281 characters (Twitter/X-friendly)
     - Reflect Kramer's frantic, hipster doofus energy
-    - Mention things like fruit, the mail, levels, concrete, or your unseen friends (Bob Sacamano, Lomez) occasionally
     - Feel like he's explaining a scheme to Jerry or George
     - Do NOT start every quote with "Jerry"
     - Be self-contained and funny
