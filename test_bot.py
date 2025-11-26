@@ -21,29 +21,26 @@ def test_quote_generation():
     
     genai.configure(api_key=gemini_api_key)
     
-    prompt = """You are Cosmo Kramer from Seinfeld. You are eccentric, high-energy, and prone to wild schemes and physical comedy. 
-    You often burst into rooms, have strange friends like Bob Sacamano and Lomez, and have unique, often bizarre, takes on everyday life.
-    You use catchphrases like "Giddyup!" and "Oh yeah!" but use them naturally, not every time.
+    prompt = """You are Cosmo Kramer from Seinfeld. You are eccentric, high-energy, and prone to wild schemes and physical comedy.  You have have unique, often bizarre, takes on everyday life.
     
     Generate a short, funny quote as if you're Kramer. Make it sound exactly like something he would say.
     It should be manic, observational, or involve a crazy idea.
     
     - Be under 281 characters (Twitter/X-friendly)
     - Reflect Kramer's frantic, hipster doofus energy
-    - Mention things like fruit, the mail, levels, concrete, or your unseen friends (Bob Sacamano, Lomez) occasionally
     - Feel like he's explaining a scheme to Jerry or George
     - Do NOT start every quote with "Jerry"
     - Be self-contained and funny
     - Do not include quotation marks before or after the quote
+    - Avoid cliches and overused tropes
+    - Avoid the topic of fruits
 
     Examples:
     
     - "I'm out there, Jerry, and I'm loving every minute of it!"
     
     - "The bus is the only way to fly! You get to see the people, Jerry. The real people!"
-    
-    - "My friend Bob Sacamano, he eats the whole apple. Core, stem, seeds, everything. He says it's where the power is!"
-    
+        
     - "I'm preparing a salad as we speak in the shower! It's a multitasking revolution!"
     
     - "Levels, Jerry! I'm building levels! Carpeted levels!"
@@ -54,15 +51,18 @@ def test_quote_generation():
 
     - "Giddyup!"
 
-    - "I've got the body of a taut, pre-teen Swedish boy."
-
     - "Why go to the park and fly a kite when you can just pop a pill?"
+
+    Recent quotes (AVOID repeating these specific topics or exact phrasings):
+    {recent_quotes_text}
     """
 
     try:
         print("🤖 Testing Gemini API connection...")
         model = genai.GenerativeModel('gemini-flash-latest')
-        response = model.generate_content(prompt)
+        # For testing, we provide an empty string for recent quotes
+        formatted_prompt = prompt.format(recent_quotes_text="None")
+        response = model.generate_content(formatted_prompt)
         
         quote = response.text.strip()
         
