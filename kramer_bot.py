@@ -131,11 +131,23 @@ class KramerBot:
     - "Giddyup!"
 
     - "Why go to the park and fly a kite when you can just pop a pill?"
+
+    Recent quotes (AVOID repeating these specific topics or exact phrasings):
+    {recent_quotes_text}
     """
         
         try:
+            # Get last 10 recent posts to avoid repetition
+            recent_quotes = self.recent_posts[-10:] if self.recent_posts else []
+            recent_quotes_text = "\n    - ".join([f'"{q}"' for q in recent_quotes])
+            
+            if recent_quotes:
+                logger.info(f"Including {len(recent_quotes)} recent quotes in prompt to avoid repetition")
+            
+            formatted_prompt = prompt.format(recent_quotes_text=recent_quotes_text)
+
             model = genai.GenerativeModel('gemini-flash-latest')
-            response = model.generate_content(prompt)
+            response = model.generate_content(formatted_prompt)
             
             quote = response.text.strip()
             
