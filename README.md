@@ -1,12 +1,12 @@
 # Kramer Bot 🤖
 
-A Bluesky and X/Twitter bot that automatically posts fictional Cosmo Kramer quotes every hour, as if he were commenting on modern life in 2025 with his signature eccentric, high-energy, and scheme-hatching perspective.
+A Bluesky and X/Twitter bot that automatically posts fictional Cosmo Kramer quotes every 3 hours and 34 minutes, as if he were commenting on modern life in 2025 with his signature eccentric, high-energy, and scheme-hatching perspective.
 
 ## Features
 
 - **Cross-platform posting**: Posts to both Bluesky and Twitter (X)
-- **Automatic scheduling**: Posts every hour using a scheduler
-- **AI-generated quotes**: Uses Google's Gemini (gemini-1.5-flash) to create unique, in-character Kramer quotes
+- **Automatic scheduling**: Posts every 3 hours and 34 minutes using a scheduler
+- **AI-generated quotes**: Uses Google's Gemini to create unique, in-character Kramer quotes
 - **Duplicate prevention**: Caches recent posts to avoid repeats
 - **Modern context**: Quotes reference current technology (AirPods, TikTok, AI, Zoom, etc.) but with Kramer's unique twist
 - **Easy deployment**: Ready to deploy
@@ -120,15 +120,15 @@ A Bluesky and X/Twitter bot that automatically posts fictional Cosmo Kramer quot
    - `TWITTER_ACCESS_TOKEN` (if using Twitter API v2)
    - `TWITTER_ACCESS_SECRET` (if using Twitter API v2)
 
-5. **Deploy**! The bot will start posting every hour.
+5. **Deploy**! The bot will start posting every 3 hours and 34 minutes.
 
 ## Configuration
 
 ### Posting Schedule
-The bot posts every 1 hour by default. To change this, modify the schedule in `kramer_bot.py`:
+The bot posts every 3 hours and 34 minutes by default. To change this, modify the schedule in `kramer_bot.py`:
 
 ```python
-schedule.every(1).hours.do(self.post_quote)
+schedule.every(214).minutes.do(self.post_quote)
 ```
 
 ### Quote Generation

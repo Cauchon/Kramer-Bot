@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Kramer Bot - A Bluesky bot that posts fictional Cosmo Kramer quotes
-Posts every hour with eccentric observations and wild schemes
+Posts every 3 hours and 34 minutes with eccentric observations and wild schemes
 """
 
 import os
@@ -267,11 +267,11 @@ class KramerBot:
             return False
     
     def run_scheduler(self):
-        """Run the scheduler to post every 1 hour."""
+        """Run the scheduler to post every 3 hours and 34 minutes."""
         logger.info("Starting Kramer Bot scheduler...")
         
-        # Schedule posts every 1 hour
-        schedule.every(1).hours.do(self.post_quote)
+        # Schedule posts every 3 hours and 34 minutes (214 minutes)
+        schedule.every(214).minutes.do(self.post_quote)
         
         # Post immediately on startup
         logger.info("Posting initial quote...")
