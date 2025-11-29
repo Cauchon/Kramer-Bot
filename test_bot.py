@@ -34,6 +34,7 @@ def test_quote_generation():
     - Do not include quotation marks before or after the quote
     - Avoid cliches and overused tropes
     - Avoid the topic of fruits
+    - Do NOT end every quote with "Giddyup!"
 
     Examples:
     
@@ -48,8 +49,6 @@ def test_quote_generation():
     - "You know, the pig man is real. The government's been experimenting with pig men since the fifties!"
 
     - "I'm discontinuing the bagel. It's too much dough! It's a dough overload!"
-
-    - "Giddyup!"
 
     - "Why go to the park and fly a kite when you can just pop a pill?"
 
